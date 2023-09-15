@@ -1,0 +1,57 @@
+---
+title: "BEE 4750/5750 Homework 2"
+author: "Your name here (your netID here)"
+date: `j import Dates; Dates.Date(Dates.now())`
+weave_options:
+    term: true
+    results: tex
+    cache: off
+---
+
+<!-- This setups the environment and installs packages, but doesn't appear in the generated document -->
+<!-- You shouldn't need to modify this -->
+```julia; echo = false; results = "hidden"
+using Pkg
+Pkg.activate(".")
+Pkg.instantiate()
+```
+
+# Problem 1
+
+## Problem 1.1
+
+## Problem 1.2
+
+## Problem 1.3
+
+## Problem 1.4
+
+## Problem 1.5
+
+## Problem 1.6
+
+## Problem 1.7
+
+```julia; echo=false
+# This block will not show up in compiled output.
+
+using Distributions
+using PDMats
+
+# This function samples n correlated variates distributed over 
+# Uniform([a[1], a[2]]) and Uniform([b[1], b[2]]) with correlation coefficient
+# corr_coef.
+function sample_correlated_uniform(n, a, b, corr_coef=0.7)
+  mvnorm = MvNormal([0, 0], PDMat([1 corr_coef; corr_coef 1])) # set up a multivariate normal with each marginal variance of 1 and the right correlation
+  norm_samples = rand(mvnorm, n)' # sample from the multivariate normal, the marginal distributions are a standard normal
+  unif_samples = cdf.(Normal(0, 1), norm_samples) # convert samples to a uniform distribution using the pdf of a standard Normal
+  samples = (unif_samples .* [a[2] - a[1] b[2] - b[1]]) .+ [a[1] b[1]]
+  return samples
+end
+```
+
+## Problem 1.8
+
+```
+
+# References
